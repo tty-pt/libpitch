@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.png" alt="libpitch logo" width="220" />
+</p>
+
 # libpitch
 
 [![npm](https://img.shields.io/badge/npm-@tty--pt/pitch-CB3837?logo=npm)](npm/README.md)
@@ -5,28 +9,13 @@
 [![BSD-2-Clause](https://img.shields.io/badge/License-BSD--2--Clause-blue)](#)
 [![chord-transpose](https://img.shields.io/badge/chord-transpose-C4841A)](#)
 
-> Pure-C musical chord detection, key analysis, and transposition library (`<ttypt/pitch.h>`).
+> Pure-C musical chord detection, key analysis, and transposition library. Canonical header is `<ttypt/pitch.h>`.
 
 Grammar-based chord detection, key-aware enharmonic spelling, and transpose/render pipeline for song charts in native C (`libpitch.so` / `libpitch.a`) and isomorphic WebAssembly (`pitch.wasm` / `@tty-pt/pitch`).
 
-## Features
+---
 
-- **Pure-C & Isomorphic WASM**: Zero external runtime dependencies; compiles to native shared/static libraries and `wasm32` modules.
-- **Grammar-based detection**: A token is a chord iff a single left-to-right scan consumes it entirely as `root` + suffix atoms — no character whitelists or external chord databases.
-- **Typed song model**: Chord / lyric / comment / empty lines become typed tokens with per-token quality (`pitch_quality_t`) and slash-bass spans.
-- **Key-aware transpose + render**: Shifts chord roots by semitones and renders plain text or HTML while preserving column alignment.
-- **Preference flags**: Flats vs sharps (`PITCH_BEMOL`), Latin solfege (`PITCH_LATIN`), show/hide sections (`PITCH_HIDE_CHORDS`, `PITCH_HIDE_LYRICS`), comment removal (`PITCH_REMOVE_COMMENTS`).
-
-## Build from source
-
-```sh
-make          # builds lib/libpitch.so, lib/libpitch.a, and bin/test_pitch
-make wasm     # builds npm/dist/pitch.wasm
-make test     # builds + runs the 72-test C suite
-make npm-test # builds + runs the Node/WASM test suite
-```
-
-## Quickstart
+## 1. Quickstart
 
 ```c
 #include <ttypt/pitch.h>
@@ -48,7 +37,24 @@ int main(void) {
 }
 ```
 
-## API Overview
+### Build & Link
+```sh
+cc transpose.c $(pkg-config --cflags --libs pitch) -o transpose
+```
+
+---
+
+## 2. Features
+
+- **Pure-C & Isomorphic WASM**: Zero external runtime dependencies; compiles to native shared/static libraries and `wasm32` modules.
+- **Grammar-based detection**: A token is a chord iff a single left-to-right scan consumes it entirely as `root` + suffix atoms — no character whitelists or external chord databases.
+- **Typed song model**: Chord / lyric / comment / empty lines become typed tokens with per-token quality (`pitch_quality_t`) and slash-bass spans.
+- **Key-aware transpose + render**: Shifts chord roots by semitones and renders plain text or HTML while preserving column alignment.
+- **Preference flags**: Flats vs sharps (`PITCH_BEMOL`), Latin solfege (`PITCH_LATIN`), show/hide sections (`PITCH_HIDE_CHORDS`, `PITCH_HIDE_LYRICS`), comment removal (`PITCH_REMOVE_COMMENTS`).
+
+---
+
+## 3. API Overview
 
 ```c
 typedef struct pitch_ctx pitch_ctx_t;
@@ -66,6 +72,36 @@ void pitch_song_free(pitch_song_t *s);
 ```
 
 - Flags (`<pitch/pitch_flags.h>`): `PITCH_HIDE_CHORDS (0x01)`, `PITCH_HIDE_LYRICS (0x02)`, `PITCH_HTML (0x04)`, `PITCH_BEMOL (0x08)`, `PITCH_REMOVE_COMMENTS (0x10)`, `PITCH_BREAK_SLASH (0x20)`, `PITCH_SHRINK (0x40)`, `PITCH_LATIN (0x80)`.
+
+---
+
+## 4. Installation & Build
+
+### Prebuilt Packages
+Prebuilt packages for Linux (APT / Alpine / Arch / Fedora-RHEL), macOS (Homebrew), Windows (winget / MSYS2), and OpenBSD are distributed via [tty.pt packages](https://github.com/tty-pt/ci/blob/main/docs/install.md). Use **libpitch** as the package name.
+
+### Build from Source
+```sh
+make              # builds lib/libpitch.so, lib/libpitch.a, and bin/test_pitch
+make wasm         # builds npm/dist/pitch.wasm
+make test         # builds + runs the 72-test C suite
+make npm-test     # builds + runs the Node/WASM test suite
+sudo make install # install headers and library to system
+```
+
+---
+
+## 5. JavaScript & WebAssembly Bindings (`@tty-pt/pitch`)
+
+For browser, Node.js, and edge runtimes, `libpitch` ships an isomorphic WebAssembly package on npm:
+
+```sh
+npm install @tty-pt/pitch
+```
+
+See [npm/README.md](npm/README.md) for the full TypeScript and WebAssembly API reference.
+
+---
 
 ## License
 
