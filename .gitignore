@@ -1,0 +1,10 @@
+*.o
+*.d
+*.a
+*.so
+/man
+/bin/
+/lib/
+npm/build/
+npm/dist/*.wasm
+npm/node_modules/

@@ -1,0 +1,10 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libpitch
+Description: Pure-C musical chord transposition and pitch analysis engine
+Version: 1.0.0
+Libs: -L${libdir} -lpitch
+Cflags: -I${includedir}

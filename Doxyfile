@@ -1,0 +1,6 @@
+PROJECT_NAME = "libpitch"
+INPUT = ./include/ttypt ./include/pitch
+GENERATE_LATEX = NO
+GENERATE_MAN = YES
+GENERATE_HTML = NO
+MAN_OUTPUT = man
