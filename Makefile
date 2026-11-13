@@ -6,6 +6,8 @@ LDLIBS-test_pitch := -L./lib -lpitch
 
 WASM_SRCS := src/token.c src/parse.c src/render.c src/music.c src/libpitch.c npm/wasm/pitch_wasm.c
 WASM_EXTRA_CFLAGS := -Iinclude/pitch -Iinclude -Isrc
+WASM_EXPORTS := malloc free
+WASM_LDFLAGS += -Wl,--import-memory -Wl,--global-base=4194304
 
 include ../mk/include.mk
 
