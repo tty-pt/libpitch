@@ -2,6 +2,19 @@
 
 All notable changes to `libpitch` (`@tty-pt/pitch`) are documented in this file.
 
+## [Unreleased]
+
+### Changed
+- **Single-Allocator Substrate Routing (`pitch.wasm`, `npm/package.json`)**:
+  - Routed all `pitch.wasm` heap allocations through `@tty-pt/stele` (`>=1.7.0` / `^1.7.0`) via `--wrap=malloc/free/calloc/realloc` and removed competing `malloc` export.
+
+## [1.0.1] - 2026-11-13
+
+### Changed
+- Upgraded substrate baseline to @tty-pt/stele@^1.6.0 (>=1.6.0).
+- Configured WASM module to import Stele linear memory with non-conflicting global base (`--global-base=4194304`).
+- Standardized documentation and README logos.
+
 ## [1.0.0] - 2026-11-11
 
 ### Added
