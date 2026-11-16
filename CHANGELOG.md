@@ -2,6 +2,16 @@
 
 All notable changes to `libpitch` (`@tty-pt/pitch`) are documented in this file.
 
+## [1.0.1] - 2026-11-16
+
+### Added
+- Added `.github/workflows/ci.yml` publishing `libpitch` across all 7 OS package formats (`deb,apk,rpm,pacman,brew,openbsd,winget`) and `@tty-pt/pitch` to npm with `linux-x64`, `darwin-arm64`, `darwin-x64`, `win32-x64` N-API prebuilds and `pitch.wasm`.
+
+### Changed
+- Routed all `pitch.wasm` heap allocations through `@tty-pt/stele` (`>=1.7.0` / `^1.7.0`) via `--wrap=malloc/free/calloc/realloc` and non-conflicting `--global-base=1245184`.
+- Made `Makefile` library symlink (`SONAME-libpitch := libtransp`) portable across Unix `.so`/`.dylib` and Windows `.dll`.
+- Standardized documentation and README logos.
+
 ## [1.0.0] - 2026-11-11
 
 ### Added

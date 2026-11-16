@@ -30,9 +30,9 @@ export const TRANSP_LATIN = PITCH_LATIN;
 /**
  * Transpose chord sheet or chord line by semitones (-11 to +11) strictly via WebAssembly
  */
-export function transposeText(text, semitones, flags = 0) {
+export function transposeText(text, semitones, flags = 0, options = {}) {
   if (!text) return "";
-  if (nativeBinding && nativeBinding.transpose) {
+  if (!options.wasm && nativeBinding && nativeBinding.transpose) {
     return nativeBinding.transpose(text, semitones, flags);
   }
 
