@@ -1,5 +1,7 @@
 FOLDER := pitch
 all := libpitch test_pitch
+SONAME-libpitch := libtransp
+INSTALL_BIN :=
 
 libpitch-obj-y := src/token.o src/parse.o src/render.o src/music.o
 LDLIBS-test_pitch := -L./lib -lpitch
@@ -8,19 +10,17 @@ WASM_SRCS := src/token.c src/parse.c src/render.c src/music.c src/libpitch.c npm
 WASM_EXTRA_CFLAGS := -Iinclude/pitch -Iinclude -Isrc
 
 include ../mk/include.mk
+LDLIBS-alpine :=
 
 CFLAGS += -I./include/pitch -I./include -I./src $(EXTRA_CFLAGS)
 
 lib/libpitch.a: src/libpitch.o src/token.o src/parse.o src/render.o src/music.o lib
-	ar rcs $@ src/libpitch.o src/token.o src/parse.o src/render.o src/music.o
-
-lib/libtransp.so: lib/libpitch.so
-	ln -sf libpitch.so $@
+	$(AR) rcs $@ src/libpitch.o src/token.o src/parse.o src/render.o src/music.o
 
 lib/libtransp.a: lib/libpitch.a
 	ln -sf libpitch.a $@
 
-all: lib/libpitch.a lib/libtransp.so lib/libtransp.a
+all: lib/libpitch.a lib/libtransp.a
 
 test: all
 	LD_LIBRARY_PATH=./lib ./bin/test_pitch
